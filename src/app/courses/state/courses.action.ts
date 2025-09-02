@@ -1,3 +1,11 @@
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
+import { Course } from "src/app/models/course.model";
 
-export const getCourses = createAction('getCourses')
+export const showForm = createAction(
+    'showForm',
+    props<{value: boolean}>()
+);
+export const createCourse = createAction(
+    'createCourse',
+    props<{ course: Course}>()
+);
