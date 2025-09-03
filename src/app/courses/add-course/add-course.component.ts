@@ -51,4 +51,44 @@ export class AddCourseComponent implements OnInit{
      this.store.dispatch(createCourse({ course }));
      this.store.dispatch(showForm({ value: false }));
   }
+   showTitleValidationerrors(){
+    const titleControl = this.courseForm.get('title');
+    if(titleControl.touched && !titleControl.valid){
+      if(titleControl.errors['required']){
+        return 'Title is a required field.';
+      }
+      if(titleControl.errors['minlength']){
+        return 'Title must be at least 6 charachters.';
+      }
+      if(titleControl.errors['maxlength']){
+        return 'Title cannot be more than 100 charachters.';
+      }
+    }
+    return '';
+  }
+   showDescriptionValidationerrors(){
+    const descriptionControl = this.courseForm.get('description');
+    if(descriptionControl.touched && !descriptionControl.valid){
+      if(descriptionControl.errors['required']){
+        return 'Description is a required field.';
+      }
+      if(descriptionControl.errors['minlength']){
+        return 'Description must be at least 10 charachters.';
+      }
+      if(descriptionControl.errors['maxlength']){
+        return 'Description cannot be more than 5000 charachters.';
+      }
+    }
+    return '';
+  }
+
+   showAuthorValidationerrors(){
+    const authorControl = this.courseForm.get('author');
+    if(authorControl.touched && !authorControl.valid){
+      if(authorControl.errors['required']){
+        return 'Author is a required field.';
+      }
+    }
+    return '';
+  }
 }
