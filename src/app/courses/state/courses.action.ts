@@ -9,3 +9,7 @@ export const createCourse = createAction(
     'createCourse',
     props<{ course: Course}>()
 );
+export const setEditMode = createAction(
+    'setEditMode',
+    props<{editMode: boolean}>()
+);

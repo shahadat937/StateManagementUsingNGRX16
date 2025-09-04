@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { createCourse, showForm } from '../state/courses.action';
+import { createCourse, setEditMode, showForm } from '../state/courses.action';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { getEditMode } from '../state/course.selector';
 
 @Component({
   selector: 'app-add-course',
@@ -11,12 +12,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AddCourseComponent implements OnInit{
    courseForm: FormGroup ;
+   editMode:boolean=false;
  constructor(
     private store: Store<AppState>,
 
   ){}
     ngOnInit() {
-
+       this.store.select(getEditMode).subscribe((data)=>{
+        this.editMode=data;
+       })
     this.init();
 
   }
@@ -44,6 +48,7 @@ export class AddCourseComponent implements OnInit{
   }
    async onCreateOrUpdateCourse(){
      console.log(this.courseForm.value);
+     this.store.dispatch(setEditMode({ editMode: false }));
      if(this.courseForm.invalid){
        return;
      }

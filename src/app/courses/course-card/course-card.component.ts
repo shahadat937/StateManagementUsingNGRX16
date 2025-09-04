@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
+import { setEditMode, showForm } from '../state/courses.action';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-course-card',
@@ -7,15 +10,19 @@ import { Course } from 'src/app/models/course.model';
   styleUrls: ['./course-card.component.css']
 })
 export class CourseCardComponent {
-  store: any;
-  router: any;
-  courseEntityService: any;
+
+
 constructor(
+   private store: Store<AppState>,
   ){}
 
   @Input() course: Course | null = null;
 
+ onCourseEdit(){
+    this.store.dispatch(showForm({ value: true }))
+   this.store.dispatch(setEditMode({ editMode: true }))
 
+  }
 
 
 

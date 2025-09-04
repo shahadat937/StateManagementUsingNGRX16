@@ -2,7 +2,8 @@ import { Course } from "src/app/models/course.model"
 
 export interface CourseStates{
 courses:Course[],
-showForm:boolean
+showForm:boolean,
+isEditMode:boolean,
 }
 export const initialState:CourseStates={
 courses:[
@@ -49,4 +50,5 @@ courses:[
 }
 ],
 showForm: false,
+isEditMode:false
 }

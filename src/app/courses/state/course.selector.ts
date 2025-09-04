@@ -9,3 +9,6 @@ export const getCourse=createSelector(
 export const getShowForm = createSelector(getCoursesState, (state) => {
     return state.showForm;
 })
+export const getEditMode = createSelector(getCoursesState, (state) => {
+    return state.isEditMode;
+})
