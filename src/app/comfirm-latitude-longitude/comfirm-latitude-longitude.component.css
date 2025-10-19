@@ -1,0 +1,79 @@
+/* Center container using flex */
+.center-container {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    height: 100vh;           /* full viewport height */
+    background-color: #f0f2f5; /* optional background */
+}
+
+/* Button styling */
+.location-btn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.location-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+}
+
+.location-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+.success-snackbar {
+  background-color: #4CAF50 !important;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: white;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+.location-table {
+  border-collapse: collapse;
+  width: 60%;
+  text-align: center;
+}
+
+.location-table th, .location-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.location-table th {
+  background-color: #1976d2;
+  color: white;
+}
