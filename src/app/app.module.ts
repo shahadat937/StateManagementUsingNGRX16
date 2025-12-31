@@ -19,6 +19,12 @@ import { coursesReducer } from './courses/state/courses.reducer';
 import { appReducer } from './store/app.state';
 import { CourseCardComponent } from './courses/course-card/course-card.component';
 import { AddCourseComponent } from './courses/add-course/add-course.component';
+import { ComfirmLatitudeLongitudeComponent } from './comfirm-latitude-longitude/comfirm-latitude-longitude.component';
+import { ComfirmLatitudeService } from './comfirm-latitude.service';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserLocationMapComponent } from './user-location-map/user-location-map.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,17 +37,23 @@ import { AddCourseComponent } from './courses/add-course/add-course.component';
     CounterInputComponent,
     CustomInputComponent,
     CourseCardComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    ComfirmLatitudeLongitudeComponent,
+    UserLocationMapComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     StoreModule.forRoot(appReducer),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    HttpClientModule,
+    MatSnackBarModule,
+    
   ],
-  providers: [],
+  providers: [ComfirmLatitudeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

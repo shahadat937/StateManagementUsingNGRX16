@@ -1,0 +1,22 @@
+<div class="container">
+  <button (click)="getLocationAndSend()">Capture My Location</button>
+
+  <table *ngIf="locations.length > 0" class="location-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loc of locations; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ loc.latitude }}</td>
+        <td>{{ loc.longitude }}</td>
+        <td>{{ loc.timestamp }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

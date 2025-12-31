@@ -22,12 +22,14 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "types": ["google.maps"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+   
 }
