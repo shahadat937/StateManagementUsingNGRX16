@@ -1,14 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { CourseStates } from './course.states';
 
-export const getCoursesState=createFeatureSelector<CourseStates>('courses');
-export const getCourse=createSelector(
+export const getCoursesState = createFeatureSelector<CourseStates>('courses');
+export const getCourse = createSelector(
   getCoursesState,
   (state: CourseStates) => state.courses
 );
 export const getShowForm = createSelector(getCoursesState, (state) => {
-    return state.showForm;
-})
+  return state.showForm;
+});
 export const getEditMode = createSelector(getCoursesState, (state) => {
-    return state.isEditMode;
-})
+  return state.isEditMode;
+});
+export const getSelectedCourse = createSelector(getCoursesState, (state) => {
+  return state.selectedCourse;
+});
