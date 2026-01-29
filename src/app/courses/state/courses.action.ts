@@ -17,3 +17,5 @@ export const setSelectedCourse = createAction(
 );
 
 export const updateCourse=createAction('updateCourse',props<{course:Course}>());
+export const deleteCourse=createAction('deleteCourse',props<{id:number}>());
+
