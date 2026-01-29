@@ -5,6 +5,7 @@ import {
   setEditMode,
   setSelectedCourse,
   showForm,
+  updateCourse,
 } from './courses.action';
 
 export const coursesReducer = createReducer(
@@ -33,5 +34,21 @@ export const coursesReducer = createReducer(
       ...state,
       selectedCourse: action.course,
     };
-  })
+  }),
+  on(updateCourse, (state, action) => {
+  console.log(action);
+
+  const updatedCourses = state.courses.map(c => {
+    if (c.id === action.course.id) {
+      return action.course;
+    } else {
+      return c;
+    }
+  });
+
+  return {
+    ...state,
+    courses: updatedCourses
+  };
+})
 );

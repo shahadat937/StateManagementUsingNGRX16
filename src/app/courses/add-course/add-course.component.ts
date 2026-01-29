@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Course } from 'src/app/models/course.model';
 import { AppState } from 'src/app/store/app.state';
 import { getEditMode, getSelectedCourse } from '../state/course.selector';
-import { createCourse, setEditMode, showForm } from '../state/courses.action';
+import { createCourse, setEditMode, setSelectedCourse, showForm, updateCourse } from '../state/courses.action';
 
 @Component({
   selector: 'app-add-course',
@@ -55,13 +55,28 @@ export class AddCourseComponent implements OnInit {
   }
   async onCreateOrUpdateCourse() {
     console.log(this.courseForm.value);
-    this.store.dispatch(setEditMode({ editMode: false }));
+    //this.store.dispatch(setEditMode({ editMode: false }));
     if (this.courseForm.invalid) {
       return;
     }
-    const course = this.courseForm.value;
-    this.store.dispatch(createCourse({ course }));
+    if(this.editMode)
+    {
+      const updatedCoures: Course={
+        id:this.course.id,
+        title:this.courseForm.value.title,
+        description:this.courseForm.value.description,
+        author:this.courseForm.value.author,
+        image:this.courseForm.value.image,
+        price:this.courseForm.value.price,
+      }
+     this.store.dispatch(updateCourse({ course:updatedCoures }));
+    }
+    else{
+      this.store.dispatch(createCourse({ course:this.courseForm.value }));
+    } 
     this.store.dispatch(showForm({ value: false }));
+    this.store.dispatch(setEditMode({ editMode: false }));
+    this.store.dispatch(setSelectedCourse({ course: null }));
   }
   showTitleValidationerrors() {
     const titleControl = this.courseForm.get('title');
