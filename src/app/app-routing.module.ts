@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'counter', component: CounterComponent },
+  { path: 'counter', loadChildren:()=>import('./counter/counter.module').then(m=>m.CounterModule)},
   { path: 'courses', component: CoursesComponent },
 ];
 
