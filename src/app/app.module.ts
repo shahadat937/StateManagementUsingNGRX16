@@ -35,7 +35,7 @@ import { appReducer } from './store/app.state';
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HttpClientModule,
-    MatSnackBarModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
