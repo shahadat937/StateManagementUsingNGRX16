@@ -5,6 +5,9 @@ import { CoursesComponent } from "./courses.component";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
+import { StoreModule } from "@ngrx/store";
+import { COURSES_STATE } from "../constants";
+import { coursesReducer } from "./state/courses.reducer";
 
 const routes: Routes = [
   { path: '', component: CoursesComponent }  // Shows CoursesComponent at /courses
@@ -20,7 +23,8 @@ const routes: Routes = [
     imports:[
        CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    StoreModule.forFeature(COURSES_STATE,coursesReducer)
     ],
     exports:[]
 })
