@@ -24,10 +24,7 @@ import { appReducer } from './store/app.state';
   declarations: [
     AppComponent,
     HomeComponent,
-    CoursesComponent,
     HeaderComponent,
-    CourseCardComponent,
-    AddCourseComponent,
   ],
   imports: [
     BrowserModule,
