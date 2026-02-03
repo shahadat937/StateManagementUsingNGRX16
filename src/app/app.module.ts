@@ -20,6 +20,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { appReducer } from './store/app.state';
+import { EffectsModule } from '@ngrx/effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { appReducer } from './store/app.state';
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent],
