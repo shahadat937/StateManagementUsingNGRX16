@@ -10,10 +10,16 @@
         <a routerLink="/UserLocationMap" routerLinkActive="active" >User Location Map</a> -->
     </div>
     <div class="header-auth-links">
-        <a routerLink="/auth/login">Login</a>
+        <span *ngIf="!(loggedUser$ |async)">
+         <a routerLink="/auth/login">Login</a>
         <a routerLink="/auth/signup">Signup</a>
+        </span>
+        <span *ngIf="(loggedUser$ |async)">
+            <a href="#">{{(loggedUser$ |async)?.email}}</a>
         <button class="logout-button">
             LOGOUT
         </button>
+        </span>
+        
     </div>
 </div>
