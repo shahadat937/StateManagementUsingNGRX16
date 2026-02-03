@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { FIREBASE_API_KEY } from 'src/app/constants';
 import { User } from 'src/app/models/user.model';
 
@@ -21,6 +22,15 @@ export class AuthService {
    }
    return this.http.post<User>(url,body);
   }
+     signup(email: string, password: string){
+        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`;
+        const body = {
+            email,
+            password,
+            returnSecureToken: true
+        }
+        return this.http.post<User>(url, body);
+    }
   getErrorMessage(errorResponse:HttpErrorResponse){
      let message='An unknown error has occured.';
       if(!errorResponse.error|| !errorResponse.error.error)
@@ -45,4 +55,16 @@ export class AuthService {
       }
       return message;
   }
+
+    //  formatUserData(response: AuthResponse){
+    //     const expirationTimestamp = Date.now() + (+response.expiresIn * 1000)
+    //     const formattedUser: User = {
+    //         accessToken: response.idToken,
+    //         email: response.email,
+    //         expiresAt: expirationTimestamp,
+    //         userId: response.localId
+    //     }
+
+    //     return formattedUser;
+    // }
 }
