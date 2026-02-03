@@ -21,13 +21,15 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { appReducer } from './store/app.state';
 import { EffectsModule } from '@ngrx/effects';
-import { LoaderComponent } from './app/loader/loader.component';
+import { LoaderComponent } from './loader/loader.component';
+import { ToasterComponent } from './toaster/toaster.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
     LoaderComponent,
+    ToasterComponent,
   ],
   imports: [
     BrowserModule,

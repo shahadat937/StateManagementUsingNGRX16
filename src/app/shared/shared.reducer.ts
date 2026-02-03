@@ -13,7 +13,7 @@ export const sharedReducer=createReducer(
     on(setErrorMessage,(state,action)=>{
           return{
             ...state,
-             errorMessage:action.massage
+             errorMessage:action.message
           }
     })
 )

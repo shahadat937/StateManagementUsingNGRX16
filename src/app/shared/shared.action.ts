@@ -5,6 +5,6 @@ export const setIsLoading = createAction(
   props<{ value: boolean }>(),
 );
 export const setErrorMessage = createAction(
-  '[shared] set error message',
-  props<{ massage: string }>(),
-);
+    '[shared] set error message', 
+    props<{message: string}>()
+)

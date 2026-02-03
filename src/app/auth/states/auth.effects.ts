@@ -29,7 +29,7 @@ export class AuthEffects {
           catchError((errorResponse)=>{
             this.store.dispatch(setIsLoading({value:false}))
           const errorMessage=  this.authService.getErrorMessage(errorResponse)
-            return of(setErrorMessage({massage:errorMessage}))
+            return of(setErrorMessage({message:errorMessage}))
           })
         );
       }),
