@@ -1,3 +1,10 @@
-import { createAction, props } from "@ngrx/store";
+import { createAction, props } from '@ngrx/store';
 
-export  const setIsLoading=createAction('[shared] set isLoading',props<{value:boolean}>())
+export const setIsLoading = createAction(
+  '[shared] set isLoading',
+  props<{ value: boolean }>(),
+);
+export const setErrorMessage = createAction(
+  '[shared] set error message',
+  props<{ massage: string }>(),
+);

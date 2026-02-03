@@ -1,6 +1,6 @@
 import { createAction, createReducer, on } from "@ngrx/store";
 import { initialState } from "../auth/states/auth.state";
-import { setIsLoading } from "./shared.action";
+import { setErrorMessage, setIsLoading } from "./shared.action";
 
 export const sharedReducer=createReducer(
     initialState,
@@ -9,5 +9,11 @@ export const sharedReducer=createReducer(
             ...state,
             isLoading:action.value
         }
+    }),
+    on(setErrorMessage,(state,action)=>{
+          return{
+            ...state,
+             errorMessage:action.massage
+          }
     })
 )

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { loginStart, loginSuccess } from './auth.action';
-import { exhaustMap, map, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { Store } from '@ngrx/store';
-import { setIsLoading } from 'src/app/shared/shared.action';
+import { setErrorMessage, setIsLoading } from 'src/app/shared/shared.action';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
@@ -25,6 +26,11 @@ export class AuthEffects {
             this.store.dispatch(setIsLoading({value:false}))
             return loginSuccess({ user: data });
           }),
+          catchError((errorResponse)=>{
+            this.store.dispatch(setIsLoading({value:false}))
+          const errorMessage=  this.authService.getErrorMessage(errorResponse)
+            return of(setErrorMessage({massage:errorMessage}))
+          })
         );
       }),
     );

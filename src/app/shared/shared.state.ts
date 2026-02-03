@@ -1,6 +1,8 @@
 export interface SharedState{
-    isLoading:boolean
+    isLoading:boolean,
+    errorMessage:string
 }
 const initialState={
     isLoading:false,
+    errorMessage:''
 }

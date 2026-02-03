@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FIREBASE_API_KEY } from 'src/app/constants';
 import { User } from 'src/app/models/user.model';
@@ -20,5 +20,29 @@ export class AuthService {
     returnSecureToken:true
    }
    return this.http.post<User>(url,body);
+  }
+  getErrorMessage(errorResponse:HttpErrorResponse){
+     let message='An unknown error has occured.';
+      if(!errorResponse.error|| !errorResponse.error.error)
+      {
+      return message;
+      }
+      switch(errorResponse.error.error.message){
+              case 'INVALID_LOGIN_CREDENTIALS':
+                message='This email & password is incorrect.';
+                break;
+              case 'EMAIL_NOT_FOUND':
+                message='this email does not exist.';
+                break;
+              case 'INVALID_PASSWORD':
+                message='This Password is not correct.';
+                break;
+              case 'USER_DISABLED':
+                message='The user has been disabled.';
+                break;
+                default:
+                  message=errorResponse.error.error.message;
+      }
+      return message;
   }
 }
