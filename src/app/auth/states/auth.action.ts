@@ -20,3 +20,6 @@ export const signupSuccess = createAction(
   '[auth] signup success',
   props<{ user: User }>(),
 );
+
+export const autoLogin = createAction('[auth] auto login');
+export const logout = createAction('[auth] logout');
