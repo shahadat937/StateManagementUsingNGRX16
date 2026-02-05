@@ -16,6 +16,9 @@ import { HomeComponent } from './home/home.component';
 import { LoaderComponent } from './loader/loader.component';
 import { appReducer } from './store/app.state';
 import { ToasterComponent } from './toaster/toaster.component';
+import{AngularFireModule} from '@angular/fire/compat'
+import{AngularFireStorageModule} from '@angular/fire/compat/storage'
+import { environment } from './environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,8 @@ import { ToasterComponent } from './toaster/toaster.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HttpClientModule,
