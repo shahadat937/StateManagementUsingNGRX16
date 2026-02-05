@@ -1,8 +1,8 @@
 export interface Course{
-id?:number,
+id?:string,
 title:string,
 description:string,
-image:string,
+//image:string,
 author:string,
 price:number
 }

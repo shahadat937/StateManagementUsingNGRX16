@@ -8,6 +8,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { StoreModule } from "@ngrx/store";
 import { COURSES_STATE } from "../constants";
 import { coursesReducer } from "./state/courses.reducer";
+import { EffectsModule } from "@ngrx/effects";
+import { CoursesEffect } from "./state/courses.effects";
 
 const routes: Routes = [
   { path: '', component: CoursesComponent }  // Shows CoursesComponent at /courses
@@ -23,6 +25,7 @@ const routes: Routes = [
     imports:[
        CommonModule,
     ReactiveFormsModule,
+      EffectsModule.forFeature([CoursesEffect]),
     RouterModule.forChild(routes),
     StoreModule.forFeature(COURSES_STATE,coursesReducer)
     ],

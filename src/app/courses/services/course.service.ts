@@ -54,7 +54,7 @@ export class CourseService {
                 description: course.description,
                 author: course.author,
                 price: course.price,
-                image: course.image,
+             //   image: course.image,
             }
         }
         return this.http.patch(

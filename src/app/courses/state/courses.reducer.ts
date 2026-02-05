@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { initialState } from './course.states';
 import {
   createCourse,
+  createCourseSuccess,
   deleteCourse,
   setEditMode,
   setSelectedCourse,
@@ -17,8 +18,8 @@ export const coursesReducer = createReducer(
       showForm: action.value,
     };
   }),
-  on(createCourse, (state, action) => {
-    const course = { ...action.course, id: state.courses.length + 1 };
+  on(createCourseSuccess, (state, action) => {
+    const course = { ...action.course, id: (state.courses.length + 1).toString() };
     return {
       ...state,
       courses: [...state.courses, course],

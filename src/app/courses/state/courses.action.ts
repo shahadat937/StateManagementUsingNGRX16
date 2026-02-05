@@ -6,6 +6,10 @@ export const createCourse = createAction(
   'createCourse',
   props<{ course: Course }>()
 );
+export const createCourseSuccess = createAction(
+    '[courses] create course success',
+    props<{ course: Course}>()
+)
 export const setEditMode = createAction(
   'setEditMode',
   props<{ editMode: boolean }>()
@@ -17,5 +21,5 @@ export const setSelectedCourse = createAction(
 );
 
 export const updateCourse=createAction('updateCourse',props<{course:Course}>());
-export const deleteCourse=createAction('deleteCourse',props<{id:number}>());
+export const deleteCourse=createAction('deleteCourse',props<{id:string}>());
 
