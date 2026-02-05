@@ -11,3 +11,10 @@ export const getLoggedUser=createSelector(
         return state.user
     }
 )
+
+export const getAccessToken=createSelector(
+    authFeatureSelector,
+    (state)=>{
+        return state.user.accessToken
+    }
+)

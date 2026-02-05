@@ -1,7 +1,7 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +19,7 @@ import { ToasterComponent } from './toaster/toaster.component';
 import{AngularFireModule} from '@angular/fire/compat'
 import{AngularFireStorageModule} from '@angular/fire/compat/storage'
 import { environment } from './environments/environment';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,7 @@ import { environment } from './environments/environment';
     MatSnackBarModule,
     EffectsModule.forRoot(AuthEffects),
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
