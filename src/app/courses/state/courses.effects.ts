@@ -6,7 +6,7 @@ import { Course } from "src/app/models/course.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.state";
 import { setErrorMessage, setIsLoading } from "src/app/shared/shared.action";
-import { createCourse, createCourseSuccess } from "./courses.action";
+import { createCourse, createCourseSuccess, readCourses, readCoursesSuccess } from "./courses.action";
 
 
 @Injectable()
@@ -39,5 +39,23 @@ export class CoursesEffect{
         )
     });
 
- 
+     readCourses$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(readCourses),
+            mergeMap((action) => {
+                this.store.dispatch(setIsLoading({ value: true}));
+                return this.courseService.readCourses().pipe(
+                    map((data) => {
+                        this.store.dispatch(setIsLoading({ value: false}));
+                        return readCoursesSuccess({ courses: data})
+                    }),
+                    catchError((error) => {
+                        this.store.dispatch(setIsLoading({ value: false}));
+                        const message = 'Something went wrong. Cannot fetch all courses.'
+                        return of(setErrorMessage({ message }))
+                    })
+                )
+            })
+        )
+    })
 }

@@ -4,6 +4,7 @@ import {
   createCourse,
   createCourseSuccess,
   deleteCourse,
+  readCoursesSuccess,
   setEditMode,
   setSelectedCourse,
   showForm,
@@ -62,5 +63,12 @@ on(deleteCourse, (state, action) => {
     ...state,
     courses: updateArray
   };
+}),
+on(readCoursesSuccess,(state,action)=>{
+  console.log(action)
+  return{
+    ...state,
+    courses:action.courses
+  }
 })
 );

@@ -38,9 +38,11 @@ export class CourseService {
             `${environment.firebaseConfig.databaseURL}/courses.json`
         ).pipe(
             map((data) => {
+                console.log(data)
                 const courses: Course[] = [];
                 for(let key in data){
                     const course = {...data[key], id: key};
+                    console.log(course)
                     courses.push(course);
                 }
                 return courses;
