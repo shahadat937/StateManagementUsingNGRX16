@@ -9,6 +9,7 @@ import {
   setSelectedCourse,
   showForm,
   updateCourse,
+  updateCourseSuccess,
 } from './courses.action';
 
 export const coursesReducer = createReducer(
@@ -38,7 +39,7 @@ export const coursesReducer = createReducer(
       selectedCourse: action.course,
     };
   }),
-  on(updateCourse, (state, action) => {
+  on(updateCourseSuccess, (state, action) => {
   console.log(action);
 
   const updatedCourses = state.courses.map(c => {

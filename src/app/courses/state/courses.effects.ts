@@ -6,7 +6,7 @@ import { Course } from "src/app/models/course.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.state";
 import { setErrorMessage, setIsLoading } from "src/app/shared/shared.action";
-import { createCourse, createCourseSuccess, readCourses, readCoursesSuccess } from "./courses.action";
+import { createCourse, createCourseSuccess, readCourses, readCoursesSuccess, updateCourse, updateCourseSuccess } from "./courses.action";
 
 
 @Injectable()
@@ -58,4 +58,26 @@ export class CoursesEffect{
             })
         )
     })
+
+      updateCourse$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updateCourse),
+            mergeMap((action) => {
+                return this.courseService.updateCourse(action.course).pipe(
+                    map((data) => {
+                        // const updatedCourse:Course = {
+                        //     id: action.course.id,
+                        //     changes: { ...action.course }
+                        // }
+                        return updateCourseSuccess({ course:action.course})
+                    }),
+                    catchError((error) => {
+                        this.store.dispatch(setIsLoading({ value: false}));
+                        const message = 'Something went wrong. Cannot update the course.'
+                        return of(setErrorMessage({ message }))
+                    })
+                )
+            })
+        )
+    });
 }
