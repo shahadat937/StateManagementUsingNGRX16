@@ -39,3 +39,6 @@ export const deleteCourse = createAction(
   'deleteCourse',
   props<{ id: string }>(),
 );
+export const deleteCourseSuccess = createAction('[courses] delete course success', 
+    props<{ id: string}>()
+)

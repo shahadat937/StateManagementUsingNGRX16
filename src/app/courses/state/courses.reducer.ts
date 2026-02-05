@@ -4,6 +4,7 @@ import {
   createCourse,
   createCourseSuccess,
   deleteCourse,
+  deleteCourseSuccess,
   readCoursesSuccess,
   setEditMode,
   setSelectedCourse,
@@ -55,7 +56,7 @@ export const coursesReducer = createReducer(
     courses: updatedCourses
   };
 }),
-on(deleteCourse, (state, action) => {
+on(deleteCourseSuccess, (state, action) => {
   console.log(action);
 
   const updateArray = state.courses.filter(c => c.id !== action.id);

@@ -6,7 +6,7 @@ import { Course } from "src/app/models/course.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.state";
 import { setErrorMessage, setIsLoading } from "src/app/shared/shared.action";
-import { createCourse, createCourseSuccess, readCourses, readCoursesSuccess, updateCourse, updateCourseSuccess } from "./courses.action";
+import { createCourse, createCourseSuccess, deleteCourse, deleteCourseSuccess, readCourses, readCoursesSuccess, updateCourse, updateCourseSuccess } from "./courses.action";
 
 
 @Injectable()
@@ -80,4 +80,22 @@ export class CoursesEffect{
             })
         )
     });
+        deleteCourse$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(deleteCourse),
+            mergeMap((action) => {
+                return this.courseService.deleteCourse(action.id).pipe(
+                    map((data) => {
+                        return deleteCourseSuccess({ id: action.id});
+                    }),
+                    catchError((error) => {
+                        this.store.dispatch(setIsLoading({ value: false}));
+                        const message = 'Something went wrong. Cannot delete the course.'
+                        return of(setErrorMessage({ message }))
+                    })
+                )
+            })
+        )
+    })
+
 }
