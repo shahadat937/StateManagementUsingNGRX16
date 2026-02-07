@@ -10,7 +10,7 @@
       [routerLinkActiveOptions]="{ exact: true }"
       >Counter</a
     >
-    <a
+    <a  *ngIf="loggedUser$ | async"
       routerLink="/courses"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"

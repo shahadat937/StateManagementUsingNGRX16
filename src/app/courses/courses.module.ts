@@ -10,9 +10,10 @@ import { COURSES_STATE } from "../constants";
 import { coursesReducer } from "./state/courses.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { CoursesEffect } from "./state/courses.effects";
+import { authGuard } from "../auth/services/auth.guard";
 
 const routes: Routes = [
-  { path: '', component: CoursesComponent }  // Shows CoursesComponent at /courses
+  { path: '', component: CoursesComponent,canActivate: [authGuard], }  // Shows CoursesComponent at /courses
 ];
 
 @NgModule({
