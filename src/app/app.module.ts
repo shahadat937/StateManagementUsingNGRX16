@@ -14,7 +14,7 @@ import { AuthEffects } from './auth/states/auth.effects';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoaderComponent } from './loader/loader.component';
-import { appReducer } from './store/app.state';
+import { appReducer,metaReducers } from './store/app.state';
 import { ToasterComponent } from './toaster/toaster.component';
 import{AngularFireModule} from '@angular/fire/compat'
 import{AngularFireStorageModule} from '@angular/fire/compat/storage'
@@ -46,12 +46,13 @@ import { CustomSerializer } from './store/router/custom-serializer';
         strictActionSerializability:true,
         strictActionTypeUniqueness:true,
         strictActionWithinNgZone:true
-      }
+      },
+      metaReducers
     }),
     StoreDevtoolsModule.instrument({ maxAge: 1000, logOnly: !isDevMode() }),
     HttpClientModule,
     MatSnackBarModule,
-    EffectsModule.forRoot(AuthEffects),
+    EffectsModule.forRoot(AuthEffects), 
     StoreRouterConnectingModule.forRoot({
       serializer:CustomSerializer
     }),

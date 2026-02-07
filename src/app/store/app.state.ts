@@ -1,22 +1,41 @@
-import { routerReducer, RouterReducerState } from "@ngrx/router-store";
-import { authReducer } from "../auth/states/auth.reducer";
-import { AuthState } from "../auth/states/auth.state";
-import { AUTH_STATE } from "../constants";
-import { counterReducer } from "../counter/states/counter-reducer";
-import { CounterState } from "../counter/states/counter-state";
-import { CourseStates } from "../courses/state/course.states";
-import { coursesReducer } from "../courses/state/courses.reducer";
-import { sharedReducer } from "../shared/shared.reducer";
-import { SharedState } from "../shared/shared.state";
+import { ActionReducer, MetaReducer } from '@ngrx/store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
-  export interface AppState{
-   auth:AuthState,
-   shared:SharedState,
-   router:RouterReducerState
-  }
+import { authReducer } from '../auth/states/auth.reducer';
+import { AuthState } from '../auth/states/auth.state';
 
-export const appReducer={
-auth:authReducer,
-shared:sharedReducer,
-router:routerReducer
+import { sharedReducer } from '../shared/shared.reducer';
+import { SharedState } from '../shared/shared.state';
+
+
+// Root App State
+export interface AppState {
+  auth: AuthState;
+  shared: SharedState;
+  router: RouterReducerState;
 }
+
+
+// Root Reducers
+export const appReducer = {
+  auth: authReducer,
+  shared: sharedReducer,
+  router: routerReducer
+};
+
+
+// Logger Meta Reducer
+export function logger(
+  reducer: ActionReducer<AppState>
+): ActionReducer<AppState> {
+  return (state, action) => {
+    console.log('state before:', state);
+    console.log('action:', action);
+
+    return reducer(state, action);
+  };
+}
+
+
+// Meta Reducers
+export const metaReducers: MetaReducer<AppState>[] = [logger];
