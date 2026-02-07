@@ -4,8 +4,6 @@ import { Course } from 'src/app/models/course.model';
 import { AppState } from 'src/app/store/app.state';
 import {
   deleteCourse,
-  setEditMode,
-  setSelectedCourse,
   showForm,
 } from '../state/courses.action';
 import { Router } from '@angular/router';
@@ -24,8 +22,7 @@ export class CourseCardComponent {
 
   onCourseEdit() {
     this.store.dispatch(showForm({ value: true }));
-    this.store.dispatch(setEditMode({ editMode: true }));
-    this.store.dispatch(setSelectedCourse({ course: this.course }));
+    this.router.navigateByUrl(`/courses?id=${this.course.id}&edit=true`)
   }
   onDeleteClicked(){
     const doDelete=confirm('Do you really want to delete this course');

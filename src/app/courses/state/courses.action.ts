@@ -16,17 +16,6 @@ export const readCoursesSuccess = createAction(
   '[courses] read courses success',
   props<{ courses: Course[] }>(),
 );
-
-export const setEditMode = createAction(
-  'setEditMode',
-  props<{ editMode: boolean }>(),
-);
-
-export const setSelectedCourse = createAction(
-  'setSelectedCourse',
-  props<{ course: Course | null }>(),
-);
-
 export const updateCourse = createAction(
   'updateCourse',
   props<{ course: Course }>(),

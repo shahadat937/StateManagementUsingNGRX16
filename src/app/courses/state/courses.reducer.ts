@@ -1,15 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from './course.states';
 import {
-  createCourse,
   createCourseSuccess,
-  deleteCourse,
   deleteCourseSuccess,
   readCoursesSuccess,
-  setEditMode,
-  setSelectedCourse,
   showForm,
-  updateCourse,
   updateCourseSuccess,
 } from './courses.action';
 
@@ -26,18 +21,6 @@ export const coursesReducer = createReducer(
     return {
       ...state,
       courses: [...state.courses, course],
-    };
-  }),
-  on(setEditMode, (state, action) => {
-    return {
-      ...state,
-      isEditMode: action.editMode,
-    };
-  }),
-  on(setSelectedCourse, (state, action) => {
-    return {
-      ...state,
-      selectedCourse: action.course,
     };
   }),
   on(updateCourseSuccess, (state, action) => {

@@ -3,10 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Course } from 'src/app/models/course.model';
 import { AppState } from 'src/app/store/app.state';
-import { getEditMode, getSelectedCourse } from '../state/course.selector';
-import { createCourse, setEditMode, setSelectedCourse, showForm, updateCourse } from '../state/courses.action';
+import { getCourseByIdQueryParams} from '../state/course.selector';
+import { createCourse, showForm, updateCourse } from '../state/courses.action';
 import { Subscription } from 'rxjs';
 import { CourseService } from '../services/course.service';
+import { getQueryParams } from 'src/app/store/router/router.selector';
 
 @Component({
   selector: 'app-add-course',
@@ -26,8 +27,8 @@ export class AddCourseComponent implements OnInit,OnDestroy {
       this.selectedCourseSubscription.unsubscribe();
   }
   ngOnInit() {
-   this.editModeSubscription= this.store.select(getEditMode).subscribe((data) => {
-      this.editMode = data;
+   this.editModeSubscription= this.store.select(getQueryParams).subscribe((quaryParams) => {
+      this.editMode = JSON.parse(quaryParams['edit']);
     });
     this.init();
     this.subsribeToSelectedCourse();
@@ -53,7 +54,7 @@ export class AddCourseComponent implements OnInit,OnDestroy {
     });
   }
   subsribeToSelectedCourse() {
-  this.selectedCourseSubscription=  this.store.select(getSelectedCourse).subscribe((course) => {
+  this.selectedCourseSubscription=  this.store.select(getCourseByIdQueryParams).subscribe((course) => {
       this.course = course;
     });
     if (this.editMode && this.course) {
@@ -91,8 +92,6 @@ export class AddCourseComponent implements OnInit,OnDestroy {
       this.store.dispatch(createCourse({ course:this.courseForm.value }));
     } 
     this.store.dispatch(showForm({ value: false }));
-    this.store.dispatch(setEditMode({ editMode: false }));
-    this.store.dispatch(setSelectedCourse({ course: null }));
   }
   showTitleValidationerrors() {
     const titleControl = this.courseForm.get('title');
