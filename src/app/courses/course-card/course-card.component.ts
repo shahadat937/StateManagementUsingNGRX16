@@ -8,6 +8,7 @@ import {
   setSelectedCourse,
   showForm,
 } from '../state/courses.action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-card',
@@ -15,7 +16,9 @@ import {
   styleUrls: ['./course-card.component.css'],
 })
 export class CourseCardComponent {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>,
+    private router:Router
+  ) {}
 
   @Input() course: Course | null = null;
 
@@ -29,5 +32,10 @@ export class CourseCardComponent {
   console.log(doDelete)
   if(doDelete)
     this.store.dispatch(deleteCourse({id:this.course.id}))
+  }
+  showDetailsClicked()
+  {
+    console.log("Test")
+this.router.navigate(['courses','course',this.course.id])
   }
 }

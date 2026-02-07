@@ -20,6 +20,8 @@ import{AngularFireModule} from '@angular/fire/compat'
 import{AngularFireStorageModule} from '@angular/fire/compat/storage'
 import { environment } from './environments/environment';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './store/router/custom-serializer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     HttpClientModule,
     MatSnackBarModule,
     EffectsModule.forRoot(AuthEffects),
+    StoreRouterConnectingModule.forRoot({
+      serializer:CustomSerializer
+    }),
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
   bootstrap: [AppComponent],
