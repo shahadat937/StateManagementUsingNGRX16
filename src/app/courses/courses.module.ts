@@ -11,6 +11,7 @@ import { coursesReducer } from "./state/courses.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { CoursesEffect } from "./state/courses.effects";
 import { authGuard } from "../auth/services/auth.guard";
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 const routes: Routes = [
   { path: '', component: CoursesComponent,canActivate: [authGuard], }  // Shows CoursesComponent at /courses
@@ -20,7 +21,8 @@ const routes: Routes = [
     declarations:[
     CoursesComponent,
     AddCourseComponent,
-    CourseCardComponent 
+    CourseCardComponent,
+    CourseDetailComponent 
 
     ],
     imports:[
