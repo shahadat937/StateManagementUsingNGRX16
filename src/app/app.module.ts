@@ -38,7 +38,11 @@ import { CustomSerializer } from './store/router/custom-serializer';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
-    StoreModule.forRoot(appReducer),
+    StoreModule.forRoot(appReducer,{
+      runtimeChecks:{
+        strictStateImmutability:true
+      }
+    }),
     StoreDevtoolsModule.instrument({ maxAge: 1000, logOnly: !isDevMode() }),
     HttpClientModule,
     MatSnackBarModule,
