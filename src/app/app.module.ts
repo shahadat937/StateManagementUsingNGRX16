@@ -40,7 +40,8 @@ import { CustomSerializer } from './store/router/custom-serializer';
     AngularFireStorageModule,
     StoreModule.forRoot(appReducer,{
       runtimeChecks:{
-        strictStateImmutability:true
+        strictStateImmutability:true,
+        strictActionImmutability:true
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 1000, logOnly: !isDevMode() }),
