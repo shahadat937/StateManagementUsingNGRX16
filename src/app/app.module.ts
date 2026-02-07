@@ -42,7 +42,8 @@ import { CustomSerializer } from './store/router/custom-serializer';
       runtimeChecks:{
         strictStateImmutability:true,
         strictActionImmutability:true,
-        strictStateSerializability:true
+        strictStateSerializability:true,
+        strictActionSerializability:true
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 1000, logOnly: !isDevMode() }),
