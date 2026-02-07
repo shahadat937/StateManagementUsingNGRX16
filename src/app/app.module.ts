@@ -43,7 +43,9 @@ import { CustomSerializer } from './store/router/custom-serializer';
         strictStateImmutability:true,
         strictActionImmutability:true,
         strictStateSerializability:true,
-        strictActionSerializability:true
+        strictActionSerializability:true,
+        strictActionTypeUniqueness:true,
+        strictActionWithinNgZone:true
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 1000, logOnly: !isDevMode() }),
