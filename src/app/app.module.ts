@@ -41,7 +41,8 @@ import { CustomSerializer } from './store/router/custom-serializer';
     StoreModule.forRoot(appReducer,{
       runtimeChecks:{
         strictStateImmutability:true,
-        strictActionImmutability:true
+        strictActionImmutability:true,
+        strictStateSerializability:true
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 1000, logOnly: !isDevMode() }),
