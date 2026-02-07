@@ -7,6 +7,7 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/store/app.state";
 import { setErrorMessage, setIsLoading } from "src/app/shared/shared.action";
 import { createCourse, createCourseSuccess, deleteCourse, deleteCourseSuccess, readCourses, readCoursesSuccess, updateCourse, updateCourseSuccess } from "./courses.action";
+import { ROUTER_NAVIGATION, RouterNavigatedAction } from "@ngrx/router-store";
 
 
 @Injectable()
@@ -94,6 +95,24 @@ export class CoursesEffect{
                         return of(setErrorMessage({ message }))
                     })
                 )
+            })
+        )
+    })
+
+    getCourseById$=createEffect(()=>{
+      return  this.actions$.pipe(
+            ofType(ROUTER_NAVIGATION),
+            filter((r:RouterNavigatedAction)=>{
+return r.payload.routerState.url.startsWith('/courses/course/')
+            }),map((r:RouterNavigatedAction)=>{
+               return r.payload.routerState['params']['id'];
+            }),switchMap((id)=>{
+              return   this.courseService.getCourseById(id).pipe(
+                map((course)=>{
+                     const courseData=[{...course,id}]
+                    return readCoursesSuccess({courses:courseData})
+                })
+              )
             })
         )
     })

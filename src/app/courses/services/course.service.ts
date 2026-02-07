@@ -74,4 +74,5 @@ export class CourseService {
     getCourseById(id: string): Observable<Course>{
         return this.http.get<Course>(`${environment.firebaseConfig.databaseURL}/courses/${id}.json`)
     }
+    
 }
