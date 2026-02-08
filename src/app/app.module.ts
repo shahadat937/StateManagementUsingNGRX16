@@ -22,6 +22,8 @@ import { environment } from './environments/environment';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './store/router/custom-serializer';
+import { EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './entity-metadata';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,7 @@ import { CustomSerializer } from './store/router/custom-serializer';
     EffectsModule.forRoot(AuthEffects), 
     StoreRouterConnectingModule.forRoot({
       serializer:CustomSerializer
-    }),
+    }), EntityDataModule.forRoot(entityConfig),
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
   bootstrap: [AppComponent],
