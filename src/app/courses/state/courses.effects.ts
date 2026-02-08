@@ -9,6 +9,7 @@ import { setErrorMessage, setIsLoading } from "src/app/shared/shared.action";
 import { createCourse, createCourseSuccess, deleteCourse, deleteCourseSuccess, readCourses, readCoursesSuccess, updateCourse, updateCourseSuccess } from "./courses.action";
 import { ROUTER_NAVIGATION, RouterNavigatedAction } from "@ngrx/router-store";
 import { Update } from "@ngrx/entity";
+import { selectCoursesLoaded } from "./course.selector";
 
 
 @Injectable()
@@ -44,7 +45,9 @@ export class CoursesEffect{
      readCourses$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(readCourses),
-            mergeMap((action) => {
+            withLatestFrom(this.store.select(selectCoursesLoaded)), 
+            filter(([_,loaded])=>!loaded),
+            switchMap((action) => {
                 this.store.dispatch(setIsLoading({ value: true}));
                 return this.courseService.readCourses().pipe(
                     map((data) => {
@@ -104,22 +107,23 @@ export class CoursesEffect{
         )
     })
 
-    getCourseById$=createEffect(()=>{
-      return  this.actions$.pipe(
-            ofType(ROUTER_NAVIGATION),
-            filter((r:RouterNavigatedAction)=>{
-return r.payload.routerState.url.startsWith('/courses/course/')
-            }),map((r:RouterNavigatedAction)=>{
-               return r.payload.routerState['params']['id'];
-            }),switchMap((id)=>{
-              return   this.courseService.getCourseById(id).pipe(
-                map((course)=>{
-                     const courseData=[{...course,id}]
-                    return readCoursesSuccess({courses:courseData})
-                })
-              )
-            })
-        )
-    })
+    // getCourseById$=createEffect(()=>{
+    //   return  this.actions$.pipe(
+    //         ofType(ROUTER_NAVIGATION),
+    //         filter((r:RouterNavigatedAction)=>{
+    //         return r.payload.routerState.url.startsWith('/courses/course/')
+    //         }),map((r:RouterNavigatedAction)=>{
+    //            return r.payload.routerState['params']['id'];
+    //         }),switchMap((id)=>{
+    //           return   this.courseService.getCourseById(id).pipe(
+    //             map((course)=>{
+    //                  const courseData:Course={...course,id}
+    //                  return createCourseSuccess({course:courseData})
+    //                 return of()
+    //             })
+    //           )
+    //         })
+    //     )
+    // },{dispatch:false})
 
 }

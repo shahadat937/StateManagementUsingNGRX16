@@ -11,9 +11,11 @@ export const courseAdapter=createEntityAdapter<Course>({
 
 export interface CourseStates extends EntityState<Course>{
   showForm: boolean;
+  loaded:boolean;
 }
 export const initialState:CourseStates=courseAdapter.getInitialState({
-  showForm:false
+  showForm:false,
+  loaded:false
 })
 
 export function sortByTitle(a:Course,b:Course): number {

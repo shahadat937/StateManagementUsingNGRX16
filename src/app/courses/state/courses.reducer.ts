@@ -19,26 +19,13 @@ export const coursesReducer = createReducer(
   on(createCourseSuccess, (state, action) => {
     return courseAdapter.addOne(action.course,state)
   }),
-//   on(updateCourseSuccess, (state, action) => {
-//   console.log(action);
-
-//   const updatedCourses = state.courses.map(c => {
-//     if (c.id === action.course.id) {
-//       return action.course;
-//     } else {
-//       return c;
-//     }
-//   });
-
-//   return {
-//     ...state,
-//     courses: updatedCourses
-//   };
-// }),
+  on(updateCourseSuccess, (state, action) => {
+     return courseAdapter.updateOne(action.course,state)
+ }),
 on(deleteCourseSuccess, (state, action) => {
     return courseAdapter.removeOne(action.id,state)
 }),
 on(readCoursesSuccess,(state,action)=>{
-  return courseAdapter.setAll(action.courses,state)
+  return courseAdapter.setAll(action.courses,{...state,loaded:true})
 })
 );

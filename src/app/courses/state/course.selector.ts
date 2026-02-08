@@ -29,3 +29,10 @@ export const getCourseByIdQueryParams=createSelector(
    return selectAll(state).find(course=>course.id===params['id'])
   }
 );
+
+
+export const selectCoursesLoaded=createSelector(
+  getCoursesState,(state)=>{
+   return state.loaded
+  }
+)
