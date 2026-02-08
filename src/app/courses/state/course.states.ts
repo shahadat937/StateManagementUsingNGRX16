@@ -1,57 +1,14 @@
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { COURSES_STATE } from 'src/app/constants';
 import { Course } from 'src/app/models/course.model';
+import { showForm } from './courses.action';
 
-export interface CourseStates {
-  courses: Course[];
+
+export const courseAdapter=createEntityAdapter<Course>();
+
+export interface CourseStates extends EntityState<Course>{
   showForm: boolean;
 }
-export const initialState: CourseStates = {
-  courses: [
-    // {
-    //   id: '1',
-    //   title: 'Mastering Modern JavaScript',
-    //   description:
-    //     'A comprehensive course covering ES6+ features, asynchronous JavaScript, and front-end development essentials.',
-    //   image: './assets/images/javascript.png',
-    //   author: 'John Doe',
-    //   price: 49.99,
-    // },
-
-    // {
-    //   id: '2',
-    //   title: 'Angular - From Zero to Hero',
-    //   description:
-    //     'Learn to build robust and scalable single-page applications with Angular, including components, services, routing, and state management.',
-    //   image: './assets/images/Angular.png',
-    //   author: 'Jane Smith',
-    //   price: 59.99,
-    // },
-    // {
-    //   id: '3',
-    //   title: 'Node.js - The Complete Guide (with RESTful APIs and GraphQL)',
-    //   description:
-    //     'Master Node.js from the ground up, including asynchronous programming, Express.js, MongoDB, Mongoose, authentication, authorization, RESTful APIs, and building scalable backend applications. Also explore GraphQL for efficient data fetching.',
-    //   image: './assets/images/javascript.png',
-    //   author: 'John Doe',
-    //   price: 79.99,
-    // },
-    // {
-    //   id: '4',
-    //   title: 'React - The Complete Guide',
-    //   description:
-    //     'Master React.js from scratch, including hooks, Redux, React Router, and building real-world projects. Learn to create dynamic and interactive user interfaces.',
-    //   image: './assets/images/Angular.png',
-    //   author: 'Mery Smith',
-    //   price: 49.99,
-    // },
-    // {
-    //   id: '4',
-    //   title: 'Microsoft SQL Server - The Complete Guide',
-    //   description:
-    //     'Learn to manage and develop with Microsoft SQL Server. This course covers everything from basic queries and database design to advanced topics like stored procedures, functions, triggers, and performance tuning. Master T-SQL and become proficient in managing enterprise-level databases.',
-    //   image: './assets/images/Angular.png',
-    //   author: 'Jane Smith',
-    //   price: 89.99,
-    // },
-  ],
-  showForm: false
-};
+export const initialState:CourseStates=courseAdapter.getInitialState({
+  showForm:false
+})

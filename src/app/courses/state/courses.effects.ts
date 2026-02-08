@@ -8,6 +8,7 @@ import { AppState } from "src/app/store/app.state";
 import { setErrorMessage, setIsLoading } from "src/app/shared/shared.action";
 import { createCourse, createCourseSuccess, deleteCourse, deleteCourseSuccess, readCourses, readCoursesSuccess, updateCourse, updateCourseSuccess } from "./courses.action";
 import { ROUTER_NAVIGATION, RouterNavigatedAction } from "@ngrx/router-store";
+import { Update } from "@ngrx/entity";
 
 
 @Injectable()
@@ -70,7 +71,11 @@ export class CoursesEffect{
                         //     id: action.course.id,
                         //     changes: { ...action.course }
                         // }
-                        return updateCourseSuccess({ course:action.course})
+                        const updatedCourse:Update<Course>={
+                            id:action.course.id,
+                            changes:{...action.course}
+                        }
+                        return updateCourseSuccess({ course:updatedCourse})
                     }),
                     catchError((error) => {
                         this.store.dispatch(setIsLoading({ value: false}));
