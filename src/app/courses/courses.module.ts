@@ -11,9 +11,12 @@ import { coursesReducer } from "./state/courses.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { authGuard } from "../auth/services/auth.guard";
 import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { coursesResolver } from "../resolvers/courses.resolver";
 
 const routes: Routes = [
-  { path: '', component: CoursesComponent,canActivate: [authGuard], } , // Shows CoursesComponent at /courses
+  { path: '', component: CoursesComponent,canActivate: [authGuard],resolve:{
+    resolver:coursesResolver
+  } } , // Shows CoursesComponent at /courses
   { path: 'course/:id', component: CourseDetailComponent,canActivate: [authGuard]}  
 ];
 

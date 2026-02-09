@@ -24,7 +24,7 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.showForm$ = this.store.select(getShowForm);
-  this.courses$= this.couserEntityService.getAll()
+  this.courses$= this.couserEntityService.entities$;
   }
   showCreateForm() {
     this.router.navigateByUrl('courses?edit=false');
