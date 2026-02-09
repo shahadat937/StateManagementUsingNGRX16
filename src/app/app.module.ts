@@ -22,8 +22,10 @@ import { environment } from './environments/environment';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './store/router/custom-serializer';
-import { EntityDataModule } from '@ngrx/data';
+import { EntityDataModule, EntityDataService } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
+import { CourseEntityService } from './courses/services/course-entity-service';
+import { CourseDataService } from './courses/services/ciurse-data.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +61,14 @@ import { entityConfig } from './entity-metadata';
       serializer:CustomSerializer
     }), EntityDataModule.forRoot(entityConfig),
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true,},CourseDataService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    entityDataService:EntityDataService,
+    courseDataService:CourseDataService,
+  ){ 
+     entityDataService.registerService('Course',courseDataService)
+  }
+}

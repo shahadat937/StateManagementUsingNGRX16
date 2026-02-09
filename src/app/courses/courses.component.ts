@@ -6,6 +6,7 @@ import { Course } from '../models/course.model';
 import { AppState } from '../store/app.state';
 import {getShowForm } from './state/course.selector';
 import { showForm } from './state/courses.action';
+import { CourseEntityService } from './services/course-entity-service';
 
 @Component({
   selector: 'app-courses',
@@ -18,10 +19,12 @@ export class CoursesComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private router: Router,
+    private couserEntityService:CourseEntityService
   ) {}
 
   ngOnInit(): void {
     this.showForm$ = this.store.select(getShowForm);
+  this.courses$= this.couserEntityService.getAll()
   }
   showCreateForm() {
     this.router.navigateByUrl('courses?edit=false');
