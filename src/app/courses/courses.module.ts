@@ -12,12 +12,36 @@ import { EffectsModule } from "@ngrx/effects";
 import { authGuard } from "../auth/services/auth.guard";
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { coursesResolver } from "../resolvers/courses.resolver";
+import { EntityDataService, EntityDefinitionService, EntityMetadataMap } from "@ngrx/data";
+import { CourseDataService } from "./services/course-data.service";
+import { Course } from "../models/course.model";
+
+export function selectCourseId(course: Course){
+    return course.id
+}
+
+function sortbyTitle(a: Course, b: Course){
+    return b.title.localeCompare(a.title);
+}
+const entityMetadata: EntityMetadataMap = {
+  Course:{
+    selectId: selectCourseId,
+    sortComparer: sortbyTitle,
+    entityDispatcherOptions:{
+      optimisticUpdate:true,
+      optimisticDelete:true
+    }
+  },
+  Lesson:{}
+};
 
 const routes: Routes = [
   { path: '', component: CoursesComponent,canActivate: [authGuard],resolve:{
     resolver:coursesResolver
   } } , // Shows CoursesComponent at /courses
-  { path: 'course/:id', component: CourseDetailComponent,canActivate: [authGuard]}  
+  { path: 'course/:id', component: CourseDetailComponent,canActivate: [authGuard],resolve:{
+    resolver:coursesResolver
+  } }  
 ];
 
 @NgModule({
@@ -35,8 +59,17 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     StoreModule.forFeature(COURSES_STATE,coursesReducer)
     ],
-    exports:[]
+    exports:[],
+    providers:[CourseDataService]
 })
 export class CoursesModule{
-
+  constructor(
+    eds:EntityDefinitionService,
+    entityDataService:EntityDataService,
+    courseDataService:CourseDataService
+  )
+  {
+eds.registerMetadataMap(entityMetadata);
+entityDataService.registerService('Course',courseDataService)
+  }
 }

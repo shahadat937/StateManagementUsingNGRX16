@@ -6,6 +6,7 @@ import {
   showForm,
 } from '../state/courses.action';
 import { Router } from '@angular/router';
+import { CourseEntityService } from '../services/course-entity-service';
 
 @Component({
   selector: 'app-course-card',
@@ -14,7 +15,8 @@ import { Router } from '@angular/router';
 })
 export class CourseCardComponent {
   constructor(private store: Store<AppState>,
-    private router:Router
+    private router:Router,
+    private courseEntityService:CourseEntityService
   ) {}
 
   @Input() course: Course | null = null;
@@ -28,7 +30,7 @@ export class CourseCardComponent {
   console.log(doDelete)
   if(doDelete)
   {
-    
+    this.courseEntityService.delete(this.course.id)
   }
   
   }

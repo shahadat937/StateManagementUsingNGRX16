@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { exhaustMap, Observable, of } from 'rxjs';
 import { Course } from 'src/app/models/course.model';
 import { AppState } from 'src/app/store/app.state';
+import { getRouterParams } from 'src/app/store/router/router.selector';
+import { CourseEntityService } from '../services/course-entity-service';
 //import {getCourseByIdParams } from '../state/course.selector';
 
 //import { getCourseByIdParams } from '../state/courses.selector';
@@ -17,7 +19,8 @@ export class CourseDetailComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute:ActivatedRoute,
+    private courseEntityService:CourseEntityService
 
   ){}
 
@@ -26,7 +29,13 @@ export class CourseDetailComponent implements OnInit {
 
   ngOnInit(): void {
    // this.id=this.activatedRoute.snapshot.paramMap.get('id');
-   //this.selectedCourse$=this.store.select(getCourseByIdParams)
+  this.store.select(getRouterParams).subscribe((routeParams)=>{
+    const id=routeParams['id']
+  this.selectedCourse$= this.courseEntityService.entities$.pipe(exhaustMap(courses=>{
+      const selectedCourse=courses.find(c=>c.id===id);
+      return of(selectedCourse)
+    }))
+   })
    
   }
 

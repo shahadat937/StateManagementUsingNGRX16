@@ -1,7 +1,12 @@
 import { EntityMetadataMap, EntityDataModuleConfig } from '@ngrx/data';
 
 const entityMetadata: EntityMetadataMap = {
-  Course:{},
+  Course:{
+    entityDispatcherOptions:{
+      optimisticUpdate:true,
+      optimisticDelete:true
+    }
+  },
   Lesson:{}
 };
 

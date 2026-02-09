@@ -8,28 +8,37 @@ import { showForm } from '../state/courses.action';
 import { Subscription } from 'rxjs';
 import { CourseService } from '../services/course.service';
 import { getQueryParams } from 'src/app/store/router/router.selector';
+import { CourseEntityService } from '../services/course-entity-service';
 
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.css'],
 })
-export class AddCourseComponent implements OnInit,OnDestroy {
+export class AddCourseComponent implements OnInit, OnDestroy {
   courseForm: FormGroup;
   editMode: boolean = false;
   course: Course = null;
-  editModeSubscription:Subscription;
-  selectedCourseSubscription:Subscription;
+  editModeSubscription: Subscription;
+  selectedCourseSubscription: Subscription;
   selectedImage: File | null = null;
-  constructor(private store: Store<AppState>, private courseService: CourseService,) {}
+  courseId:string='';
+  constructor(
+    private store: Store<AppState>,
+    private courseService: CourseService,
+    private courseEntityService: CourseEntityService,
+  ) {}
   ngOnDestroy(): void {
-      this.editModeSubscription.unsubscribe();
-      this.selectedCourseSubscription.unsubscribe();
+    this.editModeSubscription.unsubscribe();
+    this.selectedCourseSubscription.unsubscribe();
   }
   ngOnInit() {
-   this.editModeSubscription= this.store.select(getQueryParams).subscribe((quaryParams) => {
-      this.editMode = JSON.parse(quaryParams['edit']);
-    });
+    this.editModeSubscription = this.store
+      .select(getQueryParams)
+      .subscribe((quaryParams) => {
+        this.editMode = JSON.parse(quaryParams['edit']);
+        this.courseId=quaryParams['id']
+      });
     this.init();
     this.subsribeToSelectedCourse();
   }
@@ -54,9 +63,12 @@ export class AddCourseComponent implements OnInit,OnDestroy {
     });
   }
   subsribeToSelectedCourse() {
-  // this.selectedCourseSubscription=  this.store.select(getCourseByIdQueryParams).subscribe((course) => {
-  //     this.course = course;
-  //   });
+    // this.selectedCourseSubscription=  this.store.select(getCourseByIdQueryParams).subscribe((course) => {
+    //     this.course = course;
+    //   });
+   this.selectedCourseSubscription= this.courseEntityService.entities$.subscribe(courses=>{
+      this.course=courses.find(c=>c.id === this.courseId)
+    })
     if (this.editMode && this.course) {
       this.courseForm.patchValue(this.course);
     } else {
@@ -65,32 +77,31 @@ export class AddCourseComponent implements OnInit,OnDestroy {
   }
   async onCreateOrUpdateCourse() {
     console.log(this.courseForm.value);
- //   this.store.dispatch(setEditMode({ editMode: false }));
+    //   this.store.dispatch(setEditMode({ editMode: false }));
     if (!this.courseForm.valid) {
       return;
     }
-    if(this.editMode)
-    {
-     //  const url = await this.courseService.uploadImage(this.selectedImage);
-       //const imagePath = url ? url : this.courseForm.value.image;
+    if (this.editMode) {
+      //  const url = await this.courseService.uploadImage(this.selectedImage);
+      //const imagePath = url ? url : this.courseForm.value.image;
       //this.courseForm.patchValue({ image: imagePath});
-      const updatedCoures: Course={
-        id:this.course.id,
-        title:this.courseForm.value.title,
-        description:this.courseForm.value.description,
-        author:this.courseForm.value.author,
-      //  image:this.courseForm.value.image,
-        price:this.courseForm.value.price,
+      const updatedCoures: Course = {
+        id: this.course.id,
+        title: this.courseForm.value.title,
+        description: this.courseForm.value.description,
+        author: this.courseForm.value.author,
+        //  image:this.courseForm.value.image,
+        price: this.courseForm.value.price,
       }
-   
+      this.courseEntityService.update(updatedCoures)
+    } else {
+      //Create a new course on button click
+      // const url = await this.courseService.uploadImage(this.selectedImage);
+      //this.courseForm.patchValue({ image: url });
+      console.log(this.courseForm.value);
+      const course:Course=this.courseForm.value
+      this.courseEntityService.add(course)
     }
-    else{
-     //Create a new course on button click
-     // const url = await this.courseService.uploadImage(this.selectedImage);
-      //this.courseForm.patchValue({ image: url }); 
-         console.log(this.courseForm.value);
-     
-    } 
     this.store.dispatch(showForm({ value: false }));
   }
   showTitleValidationerrors() {
@@ -134,12 +145,12 @@ export class AddCourseComponent implements OnInit,OnDestroy {
     return '';
   }
 
-  onFileSelected(event: any){
+  onFileSelected(event: any) {
     const file = event.target.files[0];
-    if(file){
+    if (file) {
       this.selectedImage = file;
       const fileNameSpan = document.querySelector('.file-name');
-      if(fileNameSpan){
+      if (fileNameSpan) {
         fileNameSpan.textContent = file.name;
       }
     }
