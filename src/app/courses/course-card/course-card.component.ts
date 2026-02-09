@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Course } from 'src/app/models/course.model';
 import { AppState } from 'src/app/store/app.state';
 import {
-  deleteCourse,
   showForm,
 } from '../state/courses.action';
 import { Router } from '@angular/router';
@@ -28,7 +27,10 @@ export class CourseCardComponent {
     const doDelete=confirm('Do you really want to delete this course');
   console.log(doDelete)
   if(doDelete)
-    this.store.dispatch(deleteCourse({id:this.course.id}))
+  {
+    
+  }
+  
   }
   showDetailsClicked()
   {
