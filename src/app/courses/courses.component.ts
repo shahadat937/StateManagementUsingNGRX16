@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course.model';
 import { AppState } from '../store/app.state';
-import { getCourse, getShowForm } from './state/course.selector';
-import { readCourses, showForm } from './state/courses.action';
+import {getShowForm } from './state/course.selector';
+import { showForm } from './state/courses.action';
 
 @Component({
   selector: 'app-courses',
@@ -21,9 +21,7 @@ export class CoursesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.courses$ = this.store.select(getCourse);
     this.showForm$ = this.store.select(getShowForm);
-    this.store.dispatch(readCourses());
   }
   showCreateForm() {
     this.router.navigateByUrl('courses?edit=false');
