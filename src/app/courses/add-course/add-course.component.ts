@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Course } from 'src/app/models/course.model';
 import { AppState } from 'src/app/store/app.state';
-import { getCourseByIdQueryParams} from '../state/course.selector';
-import { createCourse, showForm, updateCourse } from '../state/courses.action';
+//import { getCourseByIdQueryParams} from '../state/course.selector';
+import { showForm } from '../state/courses.action';
 import { Subscription } from 'rxjs';
 import { CourseService } from '../services/course.service';
 import { getQueryParams } from 'src/app/store/router/router.selector';
@@ -54,9 +54,9 @@ export class AddCourseComponent implements OnInit,OnDestroy {
     });
   }
   subsribeToSelectedCourse() {
-  this.selectedCourseSubscription=  this.store.select(getCourseByIdQueryParams).subscribe((course) => {
-      this.course = course;
-    });
+  // this.selectedCourseSubscription=  this.store.select(getCourseByIdQueryParams).subscribe((course) => {
+  //     this.course = course;
+  //   });
     if (this.editMode && this.course) {
       this.courseForm.patchValue(this.course);
     } else {
@@ -82,14 +82,14 @@ export class AddCourseComponent implements OnInit,OnDestroy {
       //  image:this.courseForm.value.image,
         price:this.courseForm.value.price,
       }
-     this.store.dispatch(updateCourse({ course:updatedCoures }));
+   
     }
     else{
      //Create a new course on button click
      // const url = await this.courseService.uploadImage(this.selectedImage);
       //this.courseForm.patchValue({ image: url }); 
          console.log(this.courseForm.value);
-      this.store.dispatch(createCourse({ course:this.courseForm.value }));
+     
     } 
     this.store.dispatch(showForm({ value: false }));
   }
