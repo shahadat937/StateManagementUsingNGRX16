@@ -1,11 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { courseAdapter, initialState } from './course.states';
+import {initialState } from './course.states';
 import {
-  createCourseSuccess,
-  deleteCourseSuccess,
-  readCoursesSuccess,
-  showForm,
-  updateCourseSuccess,
+  showForm
 } from './courses.action';
 
 export const coursesReducer = createReducer(
@@ -16,16 +12,5 @@ export const coursesReducer = createReducer(
       showForm: action.value,
     };
   }),
-  on(createCourseSuccess, (state, action) => {
-    return courseAdapter.addOne(action.course,state)
-  }),
-  on(updateCourseSuccess, (state, action) => {
-     return courseAdapter.updateOne(action.course,state)
- }),
-on(deleteCourseSuccess, (state, action) => {
-    return courseAdapter.removeOne(action.id,state)
-}),
-on(readCoursesSuccess,(state,action)=>{
-  return courseAdapter.setAll(action.courses,{...state,loaded:true})
-})
-);
+  
+)
